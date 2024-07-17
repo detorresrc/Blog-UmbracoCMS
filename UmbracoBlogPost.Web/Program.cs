@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using UmbracoBlogPost.Web.AppCode.CustomDbContext;
+using UmbracoBlogPost.Web.AppCode.Extensions;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.CreateUmbracoBuilder()
@@ -5,7 +9,12 @@ builder.CreateUmbracoBuilder()
     .AddWebsite()
     .AddDeliveryApi()
     .AddComposers()
+    .AddCustomNotificationServices()
     .Build();
+
+builder.Services.AddUmbracoDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("umbracoDbDSN"))
+);
 
 WebApplication app = builder.Build();
 
