@@ -1,9 +1,12 @@
+using Umbraco.Cms.Core.Models.Blocks;
+using Umbraco.Cms.Web.Common.PublishedModels;
+
 namespace UmbracoBlogPost.Web.AppCode.Models.ViewComponentModels;
 
 public class FooterVm
 {
     public List<FooterLink> FooterLinks { get; set; } = new();
-    public List<FooterSocialMediaLink> FooterSocialMediaLinks { get; set; } = new();
+    public BlockListModel? SocialMedia { get; set; }
 }
 
 public class FooterLink

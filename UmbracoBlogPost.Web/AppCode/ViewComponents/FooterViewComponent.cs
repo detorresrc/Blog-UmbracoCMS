@@ -28,19 +28,8 @@ public class FooterViewComponent(
                     Target = itemFooterLink.Target
                 });
             }
-
-            foreach (var item in homePage.SocialMedia)
-            {
-                var socialLink = item.Content as SocialMediaElement;
-                if (socialLink.Display is false) continue;
-                
-                model.FooterSocialMediaLinks.Add(new()
-                {
-                    Link = socialLink.SocialMediaUrl,
-                    Target = socialLink.Target,
-                    Icon = socialLink.Icon.Value
-                });
-            }
+            
+            model.SocialMedia = homePage.SocialMedia;
         }
         catch (Exception e)
         {
