@@ -1,0 +1,42 @@
+@using Umbraco.Cms.Core.Services
+@model UmbracoBlogPost.Web.AppCode.Models.PaginatedList<Blog>
+@inject IUserService UserService
+
+@{
+    var prevCss = !Model.HasPreviousPage ? "d-none" : "" ;
+    var nextCss = !Model.HasNextPage ? "d-none" : "" ;
+}
+
+@if (Model.Count > 0)
+{
+    @foreach (var item in Model)
+    {
+        <div class="post-preview">
+            <a href="@item.Url()">
+                <h2 class="post-title">@item.Title</h2>
+                <h3 class="post-subtitle">@item.SubTitle</h3>
+            </a>
+            <p class="post-meta">
+                Posted by
+                <a href="@(item.Author?.Url())">@(item.Author?.Name)</a>
+                on @item.CreateDate.ToString("D")
+            </p>
+        </div>
+    }
+}
+else
+{
+    <p>No blog posts found.</p>
+}
+
+<div class="d-flex justify-content-between mb-2">
+    <a class="btn btn-sm btn-primary text-uppercase @prevCss" href="/?page=@(Model.PageIndex-1)">
+        <span class="fa fa-arrow-alt-circle-left"></span>
+        Previous Posts
+    </a>
+
+    <a class="btn btn-sm btn-primary text-uppercase @nextCss" href="/?page=@(Model.PageIndex+1)">
+        Older Posts
+        <span class="fa fa-arrow-alt-circle-right"></span>
+    </a>
+</div>

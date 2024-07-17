@@ -1,0 +1,18 @@
+@model IEnumerable<SocialMediaElement>
+
+@if (Model.Any())
+{
+    <ul class="list-inline text-center">
+        @foreach (var socialItem in Model)
+        {
+            <li class="list-inline-item">
+                <a href="@socialItem.SocialMediaUrl" target="@socialItem.Target)">
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        @Html.Raw(socialItem.Icon)
+                    </span>
+                </a>
+            </li>
+        }
+    </ul>
+}

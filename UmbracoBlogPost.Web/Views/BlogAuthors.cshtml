@@ -1,0 +1,34 @@
+﻿@using Umbraco.Cms.Core.Services
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.BlogAuthors>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inject IUserService UserService
+@{
+	Layout = "_Layout";
+	var authors = Model.Children<BlogAuthor>() ?? [];
+}
+
+<main class="mb-4">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 gx-lg-5 justify-content-center">
+			@foreach (var author in authors)
+			{
+				<div class="card m-2" style="width: 18rem;">
+					<img class="card-img-top" src="/media/@(UserService.GetUserById(author.AuthorId)?.Avatar)" alt="@author?.Name"/>
+					<div class="card-body">
+						<h5 class="card-title">
+							<a href="@author?.Url()">
+								<p>@(author?.Name)</p>
+							</a>
+						</h5>
+					</div>
+					
+					<partial name="Partials/SocialMedia/_SocialMedia" model="@author?
+							          .SocialMedia?
+							          .Where(x=>x.Content.IsVisible() )
+							          .Select(x => (SocialMediaElement)x.Content)
+							          .Where(x => x.Display)"/>
+				</div>
+			}
+		</div>
+	</div>
+</main>
