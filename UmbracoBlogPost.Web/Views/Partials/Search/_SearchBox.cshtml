@@ -1,0 +1,6 @@
+@model (string searchTerm, Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper)
+
+<form class="form-inline my-2 my-lg-0" action="/search" method="GET">
+    <input class="form-control-sm mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search" value="@Model.searchTerm">
+    <button class="btn btn-sm btn-primary">Search</button>
+</form>

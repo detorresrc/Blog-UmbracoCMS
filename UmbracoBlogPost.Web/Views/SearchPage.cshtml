@@ -1,0 +1,69 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.SearchPage>
+@using Examine
+@using Umbraco.Cms.Web.Common
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inject IExamineManager ExamineManager
+@inject UmbracoHelper UmbracoHelper
+@{
+    Layout = "_Layout";
+
+    var searchTerm = Context?.Request?.Query["query"].ToString();
+
+    IEnumerable<string>? results = null;
+	
+    if (!string.IsNullOrWhiteSpace(searchTerm) &&  ExamineManager.TryGetIndex("ExternalIndex", out var index))
+    {
+        var query = index
+            .Searcher
+            .CreateQuery("content")
+            .NodeTypeAlias("blog")
+            .And()
+            .GroupedOr(new[] { "subTitle", "title" }, searchTerm);
+
+        results = query.Execute().Select(x => x.Id);
+    }
+}
+
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+
+                @if(results is not null && results.Any())
+                {
+                    <p>We found @results.Count() results.</p>
+                    <div class="row">
+                        @foreach(var id in results)
+                        {
+                            var content = UmbracoHelper.Content(id) as Blog;
+                            <div class="post-preview">
+                                <a href="@content.Url()">
+                                    <h2 class="post-title">@content.Title</h2>
+                                    <h3 class="post-subtitle">@content.SubTitle</h3>
+                                </a>
+                                <p class="post-meta">
+                                    Posted by
+                                    <a href="@(content.Author?.Url())">@(content.Author?.Name)</a>
+                                    on @content.CreateDate.ToString("D")
+                                </p>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <div class="p-5 bg-light">
+                                    <h5>Your search returned 0 results.</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+				
+            </div>
+        </div>
+    </div>
+</main>
