@@ -1,0 +1,16 @@
+{
+  "javascript": [
+    "~/App_Plugins/ContactUs/contactus.section.controller.js"
+  ],
+  "css": [
+  ],
+  "dashboards": [
+    {
+      "alias": "contactUsSectionDashboard",
+      "sections": [
+        "contactUsSection"
+      ],
+      "view": "~/App_Plugins/ContactUs/contactus.section.html"
+    }
+  ]
+}

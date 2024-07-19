@@ -1,0 +1,14 @@
+POST https://localhost:44398/umbraco/api/contactus/create
+Content-Type: application/json
+
+{
+  "FullName": "",
+  "Email": "detorresrc@gmail.com",
+  "Message": "Hello, I would like to inquire about your services.",
+  "Subject": "Inquiry"
+}
+
+###
+GET https://localhost:44398/umbraco/api/contactus/index
+
+###

@@ -19,12 +19,26 @@
         <PackageReference Include="Our.Iconic.Core" Version="5.3.0" />
         <PackageReference Include="Umbraco.Cms" Version="13.0.0" />
         <PackageReference Include="uSync" Version="13.2.4" />
+        <PackageReference Include="X.PagedList" Version="10.0.3" />
     </ItemGroup>
 
     <ItemGroup>
         <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
         <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
         <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="App_Plugins\ContactUs\ContactUsController.cs" />
+      <Compile Include="App_Plugins\ContactUs\ContactUsSection.cs" />
+      <Compile Include="App_Plugins\SectionComposer.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="App_Plugins\ContactUs\contactus.section.controller.js" />
+      <Content Include="App_Plugins\ContactUs\contactus.section.html" />
+      <Content Include="App_Plugins\ContactUs\index.html" />
+      <Content Include="App_Plugins\ContactUs\lang\en.xml" />
     </ItemGroup>
 
     <PropertyGroup>

@@ -1,0 +1,28 @@
+<uui-box headline="Listing" headline-variant="h5" ng-controller="contactUsSectionController as vm">
+    <uui-loader ng-if="vm.loading == true"></uui-loader>
+    <uui-table style="--uui-box-default-padding: 0;">
+
+        <uui-table-head>
+            <uui-table-head-cell>Id</uui-table-head-cell>
+            <uui-table-head-cell>Name</uui-table-head-cell>
+            <uui-table-head-cell>Email</uui-table-head-cell>
+            <uui-table-head-cell>Subject</uui-table-head-cell>
+            <uui-table-head-cell>Message</uui-table-head-cell>
+            <uui-table-head-cell>Action</uui-table-head-cell>
+        </uui-table-head>
+
+        <uui-table-row ng-repeat="item in vm.data">
+            <uui-table-cell>{{item.Id}}</uui-table-cell>
+            <uui-table-cell>{{item.FullName}}</uui-table-cell>
+            <uui-table-cell>{{item.Email}}</uui-table-cell>
+            <uui-table-cell>{{item.Subject}}</uui-table-cell>
+            <uui-table-cell>{{item.Message}}</uui-table-cell>
+            <uui-table-cell></uui-table-cell>
+        </uui-table-row>
+
+    </uui-table>
+
+    <div class="w-50" ng-if="vm.meta.total > 0">
+        <uui-pagination total="{{ vm.meta.total }}"  ng-on-change="vm.paginationOnChange($event)"></uui-pagination>    
+    </div>
+</uui-box>

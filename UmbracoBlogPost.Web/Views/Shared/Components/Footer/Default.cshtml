@@ -1,14 +1,19 @@
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<UmbracoBlogPost.Web.AppCode.Models.ViewComponentModels.FooterVm>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<CustomModels.FooterVm>
+@using CustomModels = UmbracoBlogPost.Web.AppCode.Models.ViewComponentModels
+
+<div class="container align-content-center">
+    @await Umbraco.RenderMacroAsync("MacroHelloWorld")
+</div>
 
 <footer class="border-top">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <partial name="../Partials/SocialMedia/_SocialMedia" model="@Model?
-							          .SocialMedia?
-							          .Where(x=>x.Content.IsVisible() )
-							          .Select(x => (SocialMediaElement)x.Content)
-							          .Where(x => x.Display)"/>
+                         .SocialMedia?
+                         .Where(x=>x.Content.IsVisible() )
+                         .Select(x => (SocialMediaElement)x.Content)
+                         .Where(x => x.Display)"/>
                 
                 <div class="text-center mb-2">
                     @foreach (var item in Model.FooterLinks)

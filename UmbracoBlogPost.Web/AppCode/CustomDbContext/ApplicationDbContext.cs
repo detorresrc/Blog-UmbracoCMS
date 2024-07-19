@@ -3,7 +3,8 @@ using UmbracoBlogPost.Web.AppCode.Models.CustomEntities;
 
 namespace UmbracoBlogPost.Web.AppCode.CustomDbContext;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+public class ApplicationDbContext(
+    DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<ContactUs> ContactUs { get; set; }
     

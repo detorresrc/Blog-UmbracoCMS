@@ -1,0 +1,16 @@
+﻿@using Umbraco.Cms.Web.Common
+@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage
+@inject UmbracoHelper UmbracoHelper
+
+@{
+    var blogPosts = Umbraco.Content(Guid.Parse("46605f10-7405-4644-bde9-c27c2250e0e1"))?
+        .Children()
+        .Where(x => x.IsVisible())
+        .OrderByDescending(x => x.CreateDate)
+        .AsQueryable();
+}
+
+@if (blogPosts is not null)
+{
+    <p class="m-auto text-center"><small>Total Blog Count @blogPosts.Count()</small></p>
+}
